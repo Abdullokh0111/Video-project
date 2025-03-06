@@ -7,11 +7,14 @@ let findAllVideos = async (req, res, next) => {
 
 let postNewVideo = async (req, res, next) => {
   let data = req.body;
-  console.log(data);
-  let video = new Video.create({ ...data, category: "Mibombo" });
-  // video.title = req.title
-  // video.duration = req.duration
-  // video.author = req.author
+  console.log(data, "---body");
+  console.log(req.file);
+
+  let video = new Video.create({
+    ...data,
+    category: "Mibombo",
+    banner: req.file.path,
+  });
   await video.save();
 
   res.status(200).json({ name: "video", video });
